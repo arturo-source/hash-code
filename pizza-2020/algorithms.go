@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 //Greedy gets the fastes result
 func Greedy(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint32, amount uint32) {
 	amount = 0
@@ -18,29 +16,26 @@ func Greedy(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint32, amount uin
 
 //Recursive gets the best solution
 func Recursive(maxSlices uint32, pos uint32, pizzasIn []uint32) (pizzasOut []uint32, amount uint32) {
-	fmt.Println("im in", pos)
-	if amount+pizzasIn[pos] > maxSlices {
+	if pos > uint32(len(pizzasIn))-1 {
 		return
 	}
 
-	pizzasOut = append(pizzasOut, pos)
-	amount = pizzasIn[pos]
-
-	if pos >= uint32(len(pizzasIn))-1 {
+	if pizzasIn[pos] > maxSlices {
+		return
+	}
+	if pos == uint32(len(pizzasIn))-1 {
+		pizzasOut = append(pizzasOut, pos)
+		amount = pizzasIn[pos]
 		return
 	}
 
-	var bestPizzas []uint32
-	var bestAmount uint32
-	for i := pos; int(i) < len(pizzasIn); i++ {
-		tmpPizzas, tmpAmount := Recursive(maxSlices-amount, i+1, pizzasIn)
-		tmpAmount += amount
-		if tmpAmount > bestAmount && tmpAmount < maxSlices {
-			bestAmount = tmpAmount
-			bestPizzas = tmpPizzas
+	for i := pos; int(i) < len(pizzasIn) && pizzasIn[i] <= maxSlices; i++ {
+		tmpPizzas, tmpAmount := Recursive(maxSlices-pizzasIn[i], i+1, pizzasIn)
+		tmpAmount += pizzasIn[i]
+		if tmpAmount > amount {
+			amount = tmpAmount
+			pizzasOut = append([]uint32{i}, tmpPizzas...)
 		}
 	}
-	amount = bestAmount
-	pizzasOut = append(pizzasOut, bestPizzas...)
 	return
 }

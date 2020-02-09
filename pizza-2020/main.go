@@ -28,7 +28,7 @@ func main() {
 		panic(err)
 	}
 
-	pizzasOut, _ := Greedy(maxSlices, typeSlices)
+	pizzasOut, _ := Recursive(maxSlices, 0, typeSlices)
 
 	err = outputFile(filePathOut, pizzasOut)
 	if err != nil {
