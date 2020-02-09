@@ -31,7 +31,7 @@ func main() {
 	// fmt.Println("Len:", len(typeSlices), "Cap: ", cap(typeSlices))
 	// fmt.Printf("%d %d\n%v\n", maxSlices, len(typeSlices), strings.Trim(fmt.Sprint(typeSlices), "[]"))
 
-	pizzasOut, _ := Greedy(maxSlices, typeSlices)
+	pizzasOut, _ := Recursive(maxSlices, 0, typeSlices)
 	// fmt.Println("Amount: ", amount)
 	// fmt.Println("Len:", len(pizzasOut))
 
