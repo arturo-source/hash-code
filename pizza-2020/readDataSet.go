@@ -36,20 +36,21 @@ func read(filePath string) (uint32, []uint32, error) {
 
 	isPrefix := true
 	var secondLine []byte
+	var auxLine []byte
 	for isPrefix {
-		secondLine, isPrefix, err = reader.ReadLine()
+		auxLine, isPrefix, err = reader.ReadLine()
 		if err != nil {
 			return maxSlices, typeSlices, err
 		}
-
-		information = strings.Fields(string(secondLine))
-		for _, sliceLen := range information {
-			sliceLen64, err := strconv.ParseUint(sliceLen, 10, 32)
-			if err != nil {
-				return maxSlices, typeSlices, err
-			}
-			typeSlices = append(typeSlices, uint32(sliceLen64))
+		secondLine = append(secondLine, auxLine...)
+	}
+	information = strings.Fields(string(secondLine))
+	for _, sliceLen := range information {
+		sliceLen64, err := strconv.ParseUint(sliceLen, 10, 32)
+		if err != nil {
+			return maxSlices, typeSlices, err
 		}
+		typeSlices = append(typeSlices, uint32(sliceLen64))
 	}
 
 	return maxSlices, typeSlices, nil
