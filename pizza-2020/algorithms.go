@@ -16,10 +16,6 @@ func Greedy(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint32, amount uin
 
 //Recursive gets the best solution
 func Recursive(maxSlices uint32, pos uint32, pizzasIn []uint32) (pizzasOut []uint32, amount uint32) {
-	if pos > uint32(len(pizzasIn))-1 {
-		return
-	}
-
 	if pizzasIn[pos] > maxSlices {
 		return
 	}
@@ -29,12 +25,12 @@ func Recursive(maxSlices uint32, pos uint32, pizzasIn []uint32) (pizzasOut []uin
 		return
 	}
 
-	for i := pos; int(i) < len(pizzasIn) && pizzasIn[i] <= maxSlices; i++ {
+	for i := pos; int(i) < len(pizzasIn)-1 && pizzasIn[i] <= maxSlices; i++ {
 		tmpPizzas, tmpAmount := Recursive(maxSlices-pizzasIn[i], i+1, pizzasIn)
 		tmpAmount += pizzasIn[i]
 		if tmpAmount > amount {
 			amount = tmpAmount
-			pizzasOut = append([]uint32{i}, tmpPizzas...)
+			pizzasOut = append(tmpPizzas, i)
 		}
 	}
 	return
