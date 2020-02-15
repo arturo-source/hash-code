@@ -5,7 +5,7 @@ import (
 )
 
 type TNode struct {
-	Pizzas      []uint32
+	Pizzas      []uint16
 	Pos         uint16
 	Deep        uint16
 	Amount      uint32
@@ -31,7 +31,7 @@ func (tnode *TNode) setPessimistic(maxSlices uint32, pizzasIn []uint32) {
 func NewNode(maxSlices uint32, pizzasIn []uint32) (tnode *TNode) {
 	if len(pizzasIn) > 0 {
 		tnode = &TNode{
-			[]uint32{0},
+			[]uint16{0},
 			0,
 			0,
 			0,
