@@ -39,7 +39,7 @@ func Recursive(maxSlices uint32, pos uint32, pizzasIn []uint32) (pizzasOut []uin
 }
 
 //BranchBound fuck you go compiler
-func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint32, amount uint32) {
+func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint16, amount uint32) {
 	/*
 		type TNode struct {
 		Pizzas     []uint32
@@ -49,7 +49,6 @@ func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint32, amoun
 		Optimistic uint32
 		}
 	*/
-	pizzasOut, amount = Greedy(maxSlices, pizzasIn)
 	initialNode := NewNode(maxSlices, pizzasIn)
 	var bestNode *TNode
 	pizzaQueue := queue.NewPriorityQueue(0, true)
@@ -70,7 +69,7 @@ func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint32, amoun
 			bestNode = nod
 		}
 
-		for _, newNod := range nod.Expand(pizzasIn) {
+		for _, newNod := range nod.Expand(maxSlices, pizzasIn) {
 			if newNod.Amount >= amount {
 				pizzaQueue.Put(&newNod)
 			}
