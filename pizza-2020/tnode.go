@@ -4,6 +4,7 @@ import (
 	"github.com/Workiva/go-datastructures/queue"
 )
 
+//TNode structure
 type TNode struct {
 	Pizzas      []uint16
 	Pos         uint16
@@ -12,8 +13,12 @@ type TNode struct {
 	Pessimistic uint32
 }
 
-func (tnode *TNode) Compare(queue.Item) int {
-	return 0
+func (tnode *TNode) Compare(other queue.Item) int {
+	otherN := other.(*TNode)
+	if tnode.Pessimistic > otherN.Pessimistic {
+		return 1
+	}
+	return -1
 }
 
 func (tnode *TNode) setPessimistic(maxSlices uint32, pizzasIn []uint32) {
