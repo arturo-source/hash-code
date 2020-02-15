@@ -5,7 +5,7 @@ import (
 )
 
 type TNode struct {
-	Pizzas      []uint32
+	Pizzas      []uint16
 	Pos         uint16
 	Deep        uint16
 	Amount      uint32
@@ -31,7 +31,7 @@ func (tnode *TNode) setPessimistic(maxSlices uint32, pizzasIn []uint32) {
 func NewNode(maxSlices uint32, pizzasIn []uint32) (tnode *TNode) {
 	if len(pizzasIn) > 0 {
 		tnode = &TNode{
-			[]uint32{0},
+			[]uint16{0},
 			0,
 			0,
 			0,
@@ -41,13 +41,14 @@ func NewNode(maxSlices uint32, pizzasIn []uint32) (tnode *TNode) {
 	return
 }
 
-func (tnode *TNode) Expand(pizzasIn []uint32) (sons []TNode) {
+func (tnode *TNode) Expand(maxSlices uint32, pizzasIn []uint32) (sons []TNode) {
 	for i := tnode.Pos + 1; i < uint16(len(pizzasIn)); i++ {
-		node := TNode{append(tnode.Pizzas, i)}
+		amount := tnode.Amount + pizzasIn[i]
+		if amount <= maxSlices {
+			auxNode := TNode{append(tnode.Pizzas, i), i, tnode.Deep + 1, amount, 0}
+			auxNode.setPessimistic(maxSlices, pizzasIn)
+			sons = append(sons, auxNode)
+		}
 	}
-	return
-}
-
-func (tnode *TNode) Feasible() (sons []TNode) {
 	return
 }

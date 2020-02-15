@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func outputFile(filePath string, data []uint32) error {
+func outputFile(filePath string, data []uint16) error {
 	var fileData string
 	fileData = fmt.Sprintf("%d\n%v", len(data), strings.Trim(fmt.Sprint(data), "[]"))
 
