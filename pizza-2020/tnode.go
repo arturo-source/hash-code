@@ -5,25 +5,25 @@ import (
 )
 
 type TNode struct {
-	Pizzas     []uint32
-	Pos        uint16
-	Deep       uint16
-	Amount     uint32
-	Optimistic uint32
+	Pizzas      []uint32
+	Pos         uint16
+	Deep        uint16
+	Amount      uint32
+	Pessimistic uint32
 }
 
 func (tnode *TNode) Compare(queue.Item) int {
 	return 0
 }
 
-func (tnode *TNode) setOptimistic(maxSlices uint32, pizzasIn []uint32) {
-	tnode.Optimistic = tnode.Amount
+func (tnode *TNode) setPessimistic(maxSlices uint32, pizzasIn []uint32) {
+	tnode.Pessimistic = tnode.Amount
 	for i := tnode.Pos; i < uint16(len(pizzasIn)); i++ {
 		slices := pizzasIn[i]
-		if tnode.Optimistic+slices > maxSlices {
+		if tnode.Pessimistic+slices > maxSlices {
 			return
 		}
-		tnode.Optimistic += slices
+		tnode.Pessimistic += slices
 	}
 	return
 }
@@ -37,13 +37,13 @@ func NewNode(maxSlices uint32, pizzasIn []uint32) (tnode *TNode) {
 			0,
 			0}
 	}
-	tnode.setOptimistic(maxSlices, pizzasIn)
+	tnode.setPessimistic(maxSlices, pizzasIn)
 	return
 }
 
 func (tnode *TNode) Expand(pizzasIn []uint32) (sons []TNode) {
 	for i := tnode.Pos + 1; i < uint16(len(pizzasIn)); i++ {
-
+		node := TNode{append(tnode.Pizzas, i)}
 	}
 	return
 }

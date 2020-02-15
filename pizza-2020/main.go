@@ -28,9 +28,11 @@ func main() {
 		panic(err)
 	}
 
-	pizzasOut, _ := Recursive(maxSlices, 0, typeSlices)
+	node := NewNode(maxSlices, typeSlices)
 
-	err = outputFile(filePathOut, pizzasOut)
+	// pizzasOut, _ := Recursive(maxSlices, 0, typeSlices)
+	fmt.Println(node)
+	err = outputFile(filePathOut, node.Pizzas)
 	if err != nil {
 		panic(err)
 	}
