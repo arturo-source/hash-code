@@ -1,6 +1,10 @@
 package main
 
-import "github.com/Workiva/go-datastructures/queue"
+import (
+	"github.com/Workiva/go-datastructures/queue"
+)
+
+var ITERS = 0
 
 //Greedy gets the fastes result
 func Greedy(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint32, amount uint32) {
@@ -56,10 +60,10 @@ func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint16, amoun
 	pizzaQueue.Put(initialNode)
 
 	for !pizzaQueue.Empty() {
+		ITERS++
 		auxn, _ := pizzaQueue.Get(1)
 
 		nod := auxn[0].(*TNode)
-
 		// if true /*nod.Optimistic > amount*/ {
 		if nod.Pessimistic > amount {
 			amount = nod.Pessimistic
@@ -68,11 +72,9 @@ func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint16, amoun
 		if nod.Pessimistic == nod.Amount && nod.Amount >= amount {
 			bestNode = nod
 		}
-
-		for _, newNod := range nod.Expand(maxSlices, pizzasIn) {
-			if newNod.Amount >= amount {
-				pizzaQueue.Put(&newNod)
-			}
+		expandedNodes := nod.Expand(maxSlices, pizzasIn)
+		for i := 0; i < len(expandedNodes); i++ {
+			pizzaQueue.Put(&expandedNodes[i])
 		}
 		// }
 	}

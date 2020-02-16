@@ -15,7 +15,7 @@ type TNode struct {
 
 func (tnode *TNode) Compare(other queue.Item) int {
 	otherN := other.(*TNode)
-	if tnode.Pessimistic > otherN.Pessimistic {
+	if tnode.Pessimistic < otherN.Pessimistic {
 		return 1
 	}
 	return -1
