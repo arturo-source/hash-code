@@ -54,7 +54,7 @@ func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint16, amoun
 		}
 	*/
 	initialNode := NewNode(maxSlices, pizzasIn)
-	var bestNode *TNode
+	var bestNode TNode
 	pizzaQueue := queue.NewPriorityQueue(0, true)
 
 	pizzaQueue.Put(initialNode)
@@ -64,25 +64,28 @@ func BranchBound(maxSlices uint32, pizzasIn []uint32) (pizzasOut []uint16, amoun
 		auxn, _ := pizzaQueue.Get(1)
 
 		nod := auxn[0].(*TNode)
-		// if true /*nod.Optimistic > amount*/ {
-		if nod.Pessimistic > amount {
-			amount = nod.Pessimistic
-		}
+		if nod.Optimistic > amount {
+			if nod.Pessimistic > amount {
+				amount = nod.Pessimistic
+				bestNode = *nod
+				bestNode.Pizzas = bestNode.PizzasPess
 
-		if nod.Pessimistic == nod.Amount && nod.Amount >= amount {
-			bestNode = nod
-		}
-		expandedNodes := nod.Expand(maxSlices, pizzasIn)
-		for i := 0; i < len(expandedNodes); i++ {
-			pizzaQueue.Put(&expandedNodes[i])
-		}
-		// }
-	}
+				if amount == maxSlices {
+					break
+				}
+				// fmt.Println(amount)
+			}
 
-	if bestNode != nil {
-		amount = bestNode.Amount
-		pizzasOut = bestNode.Pizzas
+			// if nod.Pessimistic == nod.Amount && nod.Amount >= amount {
+			// 	bestNode = nod
+			// }
+			expandedNodes := nod.Expand(maxSlices, pizzasIn)
+			for i := 0; i < len(expandedNodes); i++ {
+				pizzaQueue.Put(&expandedNodes[i])
+			}
+		}
 	}
+	pizzasOut = bestNode.Pizzas
 
 	return
 }

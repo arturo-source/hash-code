@@ -33,6 +33,9 @@ func main() {
 	pizzasOut, amount := BranchBound(maxSlices, typeSlices)
 	fmt.Println(ITERS)
 	fmt.Println(amount)
+
+	// fmt.Println(node)
+
 	err = outputFile(filePathOut, pizzasOut)
 	if err != nil {
 		panic(err)
