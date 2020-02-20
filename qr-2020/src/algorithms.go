@@ -14,3 +14,16 @@ func SortLibraries(libraries []LibraryT) {
 	sort.Sort(ByScore(libraries))
 	return
 }
+
+//ReasignBooks asdf
+func ReasignBooks(libraries []LibraryT) {
+	for _, lib := range libraries {
+		for i := 0; i < int(lib.MaxBooks) && i < len(lib.Books); i++ {
+			if !Books[lib.Books[i]].Used {
+				lib.BooksToSend = append(lib.BooksToSend, lib.Books[i])
+				Books[lib.Books[i]].Used = true
+			}
+		}
+	}
+	return
+}
