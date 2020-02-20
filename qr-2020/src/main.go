@@ -76,6 +76,7 @@ func readFile(fName string) {
 		lib.ID = calcPos
 		lib.CalculateDayValue()
 		lib.SortBooks()
+		lib.TotalLibsOnTime(Time)
 		Libraries[calcPos] = lib
 	}
 
