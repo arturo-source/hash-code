@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for f in $(find input | grep .in)
+do 
+	OUT=$(echo $f | sed 's/in/out/g')
+	./hashcode.exe $f $OUT
+done
