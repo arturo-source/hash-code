@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -20,6 +21,12 @@ func check(e error) {
 
 func main() {
 	fmt.Println("Hello HashCode!")
+	if len(os.Args) < 3 {
+		panic("There isn't enought arguments")
+	}
+	filePathIn := os.Args[1]
+	filePathOut := os.Args[2]
+	fmt.Println(filePathIn, filePathOut)
 }
 
 func readFile(fName string) {
