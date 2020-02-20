@@ -13,6 +13,7 @@ type LibraryT struct {
 	Books       []uint32
 	BooksToSend []uint32
 	Score       float32
+	MaxBooks    uint32
 }
 
 //BookT library structure
@@ -49,6 +50,8 @@ func (lib *LibraryT) CalculateDayValue() {
 	lib.Score = float32(value) / float32(totalDays)
 	fmt.Println("Score lib", lib.ID, " : ", lib.Score)
 }
+
+// func (lib *LibraryT)
 
 //ByScoreBooks to order by score
 type ByScoreBooks []uint32
