@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //LibraryT library structure
 type LibraryT struct {
 	ID          uint32
@@ -7,7 +9,7 @@ type LibraryT struct {
 	DailyBooks  uint32
 	Books       []uint32
 	BooksToSend []uint32
-	Score       uint32
+	Score       float32
 }
 
 //BookT library structure
@@ -28,3 +30,18 @@ var Libraries []LibraryT
 
 //LibrariesOrder Indexes of all libraries
 var LibrariesOrder []uint32
+
+//CalculateDayValue Calculates the average value of the library per day
+func (lib *LibraryT) CalculateDayValue() {
+	totalDays := float32(lib.SignTime) + float32(len(lib.Books))/float32(lib.DailyBooks)
+
+	//Calculate value of books
+	value := uint32(0)
+	for _, bookVal := range lib.Books {
+		value += bookVal
+	}
+
+	//Calculate average value per day
+	lib.Score = float32(value) / float32(totalDays)
+	fmt.Println("Score lib", lib.ID, " : ", lib.Score)
+}
