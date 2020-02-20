@@ -8,6 +8,13 @@ type LibraryT struct {
 	BooksToSend []uint32
 }
 
+//BookT library structure
+type BookT struct {
+	ID        uint32
+	Score     uint32
+	Libraries []*LibraryT
+}
+
 //Books , all books
 var Books []uint32
 
