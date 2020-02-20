@@ -23,7 +23,7 @@ func main() {
 	filePathOut := os.Args[2]
 	fmt.Println(filePathIn, filePathOut)
 	readFile(filePathIn)
-	fmt.Println("OUT")
+	SortLibraries(Libraries)
 	output(filePathOut, Libraries)
 }
 
