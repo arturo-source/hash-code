@@ -24,6 +24,9 @@ func main() {
 	fmt.Println(filePathIn, filePathOut)
 	readFile(filePathIn)
 	SortLibraries(Libraries)
+	ReasignBooks(Libraries)
+	fmt.Println(Books)
+	fmt.Println(Libraries)
 	output(filePathOut, Libraries)
 }
 

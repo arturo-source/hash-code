@@ -11,10 +11,10 @@ func output(filePath string, libraries []LibraryT) {
 
 	auxLen := len(libraries)
 	for _, lib := range libraries {
-		if len(lib.Books) != 0 {
-			out += fmt.Sprintln(lib.ID, " ", len(lib.Books))
+		if len(lib.BooksToSend) != 0 {
+			out += fmt.Sprintln(lib.ID, " ", len(lib.BooksToSend))
 
-			out += fmt.Sprintln(strings.Trim(fmt.Sprint(lib.Books), "[]"))
+			out += fmt.Sprintln(strings.Trim(fmt.Sprint(lib.BooksToSend), "[]"))
 		} else {
 			auxLen--
 		}
