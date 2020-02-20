@@ -23,6 +23,8 @@ func main() {
 	filePathOut := os.Args[2]
 	fmt.Println(filePathIn, filePathOut)
 	readFile(filePathIn)
+	fmt.Println("OUT")
+	output(filePathOut, Libraries)
 }
 
 func readFile(fName string) {
@@ -77,4 +79,23 @@ func readFile(fName string) {
 	fmt.Println(Books)
 	fmt.Println("Libraries: ", totalLibs)
 	fmt.Println(Libraries)
+
+	//LibraryT library structure
+	// type LibraryT struct {
+	// ID          uint32
+	// SignTime    uint32
+	// DailyBooks  uint32
+	// Books       []uint32
+	// BooksToSend []uint32
+	// Score       uint32
+	// }
+	// lib0 := LibraryT{0, 0, 0, []uint32{}, []uint32{}, 9}
+	// lib1 := LibraryT{0, 0, 0, []uint32{}, []uint32{}, 15}
+	// lib2 := LibraryT{0, 0, 0, []uint32{}, []uint32{}, 5}
+	// libs := []LibraryT{lib0, lib1, lib2}
+	// fmt.Println(libs)
+
+	// SortLibraries(libs)
+	// fmt.Println(libs)
+
 }
