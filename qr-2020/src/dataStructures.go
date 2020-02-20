@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 //LibraryT library structure
 type LibraryT struct {
@@ -44,4 +47,16 @@ func (lib *LibraryT) CalculateDayValue() {
 	//Calculate average value per day
 	lib.Score = float32(value) / float32(totalDays)
 	fmt.Println("Score lib", lib.ID, " : ", lib.Score)
+}
+
+//ByScoreBooks to order by score
+type ByScoreBooks []uint32
+
+func (a ByScoreBooks) Len() int           { return len(a) }
+func (a ByScoreBooks) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByScoreBooks) Less(i, j int) bool { return Books[a[i]] > Books[a[j]] }
+
+//SortBooks sort books of a library
+func (lib *LibraryT) SortBooks() {
+	sort.Sort(ByScoreBooks(lib.Books))
 }

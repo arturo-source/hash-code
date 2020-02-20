@@ -72,6 +72,7 @@ func readFile(fName string) {
 		calcPos := uint32(i/2 - 1)
 		lib.ID = calcPos
 		lib.CalculateDayValue()
+		lib.SortBooks()
 		Libraries[calcPos] = lib
 	}
 

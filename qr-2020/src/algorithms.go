@@ -2,11 +2,6 @@ package main
 
 import "sort"
 
-//SortBooks sort books of a library
-func (lib *LibraryT) SortBooks() {
-
-}
-
 //ByScore to order by score
 type ByScore []LibraryT
 
