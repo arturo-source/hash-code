@@ -15,4 +15,7 @@ var Books []uint32
 var Time uint32
 
 //Libraries all libraries
-var Libraries []uint32
+var Libraries []LibraryT
+
+//LibrariesOrder Indexes of all libraries
+var LibrariesOrder []uint32
