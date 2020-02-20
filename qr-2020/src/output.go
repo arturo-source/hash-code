@@ -8,12 +8,17 @@ import (
 
 func output(filePath string, libraries []LibraryT) {
 	out := ""
-	out += fmt.Sprintln(len(libraries))
+
+	auxLen := len(libraries)
 	for _, lib := range libraries {
-		out += fmt.Sprintln(lib.ID, " ", len(lib.Books))
 		if len(lib.Books) != 0 {
+			out += fmt.Sprintln(lib.ID, " ", len(lib.Books))
+
 			out += fmt.Sprintln(strings.Trim(fmt.Sprint(lib.Books), "[]"))
+		} else {
+			auxLen--
 		}
 	}
+	out = fmt.Sprintln(auxLen) + out
 	ioutil.WriteFile(filePath, []byte(out), 0644)
 }
