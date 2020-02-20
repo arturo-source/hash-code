@@ -67,7 +67,9 @@ func readFile(fName string) {
 			auxValue, _ := strconv.Atoi(val)
 			lib.Books[j] = uint32(auxValue)
 		}
-		Libraries[i/2-1] = lib
+		calcPos := uint32(i/2 - 1)
+		lib.ID = calcPos
+		Libraries[calcPos] = lib
 	}
 
 	fmt.Println("Days: ", Time)
