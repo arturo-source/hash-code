@@ -41,11 +41,14 @@ func readFile(fName string) {
 	Time = uint32(auxTime)
 
 	//Read books
-	Books = make([]uint32, totalBooks)
+	Books = make([]BookT, totalBooks)
 	auxBooks := strings.Split(fileLines[1], " ")
 	for i := 0; i < totalBooks; i++ {
 		auxValue, _ := strconv.Atoi(auxBooks[i])
-		Books[i] = uint32(auxValue)
+		var book BookT
+		book.Score = uint32(auxValue)
+		book.Used = false
+		Books[i] = book
 	}
 
 	//Read Libraries
@@ -60,14 +63,17 @@ func readFile(fName string) {
 		singupTime, _ := strconv.Atoi(auxLibs[1])
 		shipLimit, _ := strconv.Atoi(auxLibs[2])
 
-		lib.Books = make([]uint32, totalBooksLib)
+		lib.Books = make([]uint32, 0, totalBooksLib)
 		lib.SignTime = uint32(singupTime)
 		lib.DailyBooks = uint32(shipLimit)
 
 		//Read library books information
-		for j, val := range strings.Split(fileLines[i+1], " ") {
-			auxValue, _ := strconv.Atoi(val)
-			lib.Books[j] = uint32(auxValue)
+		for _, val := range strings.Split(fileLines[i+1], " ") {
+			bookIndex, _ := strconv.Atoi(val)
+			if !Books[bookIndex].Used {
+				lib.Books = append(lib.Books, uint32(bookIndex))
+				Books[bookIndex].Used = true
+			}
 		}
 		calcPos := uint32(i/2 - 1)
 		lib.ID = calcPos

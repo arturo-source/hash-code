@@ -17,13 +17,14 @@ type LibraryT struct {
 
 //BookT library structure
 type BookT struct {
-	ID        uint32
-	Score     uint32
-	Libraries []*LibraryT
+	// ID    uint32
+	Score uint32
+	Used  bool
+	// Libraries []*LibraryT
 }
 
 //Books , all books
-var Books []uint32
+var Books []BookT
 
 //Time , total days
 var Time uint32
@@ -54,7 +55,7 @@ type ByScoreBooks []uint32
 
 func (a ByScoreBooks) Len() int           { return len(a) }
 func (a ByScoreBooks) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByScoreBooks) Less(i, j int) bool { return Books[a[i]] > Books[a[j]] }
+func (a ByScoreBooks) Less(i, j int) bool { return Books[a[i]].Score > Books[a[j]].Score }
 
 //SortBooks sort books of a library
 func (lib *LibraryT) SortBooks() {
