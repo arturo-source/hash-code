@@ -1,3 +1,4 @@
 #!/bin/sh
 
 tar -czf source.tgz src
+go build -o hashcode.exe src/*
