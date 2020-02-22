@@ -22,40 +22,40 @@ func main() {
 	filePathIn := os.Args[1]
 	filePathOut := os.Args[2]
 	fmt.Println(filePathIn, filePathOut)
-	readFile(filePathIn)
-	SortLibraries(Libraries)
-	ReasignBooks(Libraries)
-	fmt.Println(Books)
-	fmt.Println(Libraries)
-	output(filePathOut, Libraries)
+	libraries, books, time := readFile(filePathIn)
+	SortLibraries(libraries)
+	ReasignBooks(libraries, books, time)
+	fmt.Println(books)
+	fmt.Println(libraries)
+	output(filePathOut, libraries)
 }
 
-func readFile(fName string) {
+func readFile(fName string) (libraries []LibraryT, books []BookT, time uint32) {
 	dat, err := ioutil.ReadFile(fName)
 	check(err)
 
-	//Read total Books Libraries and Days to scan
+	//Read total Books libraries and Days to scan
 	fileLines := strings.Split(string(dat), "\n")
 
 	aux := strings.Split(fileLines[0], " ")
 	totalBooks, _ := strconv.Atoi(aux[0])
 	totalLibs, _ := strconv.Atoi(aux[1])
 	auxTime, _ := strconv.Atoi(aux[2])
-	Time = uint32(auxTime)
+	time = uint32(auxTime)
 
 	//Read books
-	Books = make([]BookT, totalBooks)
+	books = make([]BookT, totalBooks)
 	auxBooks := strings.Split(fileLines[1], " ")
 	for i := 0; i < totalBooks; i++ {
 		auxValue, _ := strconv.Atoi(auxBooks[i])
 		var book BookT
 		book.Score = uint32(auxValue)
 		book.Used = false
-		Books[i] = book
+		books[i] = book
 	}
 
-	//Read Libraries
-	Libraries = make([]LibraryT, totalLibs)
+	//Read libraries
+	libraries = make([]LibraryT, totalLibs)
 	length := totalLibs * 2
 	for i := 2; i <= length; i += 2 {
 		//Read library initial data
@@ -77,15 +77,13 @@ func readFile(fName string) {
 		}
 		calcPos := uint32(i/2 - 1)
 		lib.ID = calcPos
-		lib.CalculateDayValue()
-		lib.SortBooks()
-		lib.TotalLibsOnTime(Time)
-		Libraries[calcPos] = lib
+		libraries[calcPos] = lib
 	}
 
-	fmt.Println("Days: ", Time)
+	fmt.Println("Days: ", time)
 	fmt.Println("Books: ", totalBooks)
-	fmt.Println(Books)
+	fmt.Println(books)
 	fmt.Println("Libraries: ", totalLibs)
-	fmt.Println(Libraries)
+	fmt.Println(libraries)
+	return
 }

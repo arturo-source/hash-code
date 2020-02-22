@@ -18,23 +18,9 @@ type LibraryT struct {
 
 //BookT library structure
 type BookT struct {
-	// ID    uint32
 	Score uint32
 	Used  bool
-	// Libraries []*LibraryT
 }
-
-//Books , all books
-var Books []BookT
-
-//Time , total days
-var Time uint32
-
-//Libraries all libraries
-var Libraries []LibraryT
-
-//LibrariesOrder Indexes of all libraries
-var LibrariesOrder []uint32
 
 //CalculateDayValue Calculates the average value of the library per day
 func (lib *LibraryT) CalculateDayValue() {
@@ -57,13 +43,20 @@ func (lib *LibraryT) TotalLibsOnTime(time uint32) {
 }
 
 //ByScoreBooks to order by score
-type ByScoreBooks []uint32
+type ByScoreBooks struct {
+	libBooks   *[]uint32
+	totalBooks *[]BookT
+}
 
-func (a ByScoreBooks) Len() int           { return len(a) }
-func (a ByScoreBooks) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByScoreBooks) Less(i, j int) bool { return Books[a[i]].Score > Books[a[j]].Score }
+func (a ByScoreBooks) Len() int { return len((*a.libBooks)) }
+func (a ByScoreBooks) Swap(i, j int) {
+	(*a.libBooks)[i], (*a.libBooks)[j] = (*a.libBooks)[j], (*a.libBooks)[i]
+}
+func (a ByScoreBooks) Less(i, j int) bool {
+	return (*a.totalBooks)[(*a.libBooks)[i]].Score > (*a.totalBooks)[(*a.libBooks)[j]].Score
+}
 
 //SortBooks sort books of a library
-func (lib *LibraryT) SortBooks() {
-	sort.Sort(ByScoreBooks(lib.Books))
+func (lib *LibraryT) SortBooks(totalBooks []BookT) {
+	sort.Sort(ByScoreBooks{&lib.Books, &totalBooks})
 }

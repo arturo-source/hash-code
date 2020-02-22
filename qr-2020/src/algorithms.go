@@ -16,13 +16,14 @@ func SortLibraries(libraries []LibraryT) {
 }
 
 //ReasignBooks asdf
-func ReasignBooks(libraries []LibraryT) {
+func ReasignBooks(libraries []LibraryT, books []BookT, time uint32) {
 	for i := 0; i < len(libraries); i++ {
 		lib := &libraries[i]
+		lib.TotalLibsOnTime(time)
 		for j := 0; j < int(lib.MaxBooks) && j < len(lib.Books); j++ {
-			if !Books[lib.Books[j]].Used {
+			if !books[lib.Books[j]].Used {
 				lib.BooksToSend = append(lib.BooksToSend, lib.Books[j])
-				Books[lib.Books[j]].Used = true
+				books[lib.Books[j]].Used = true
 			}
 		}
 	}
