@@ -53,7 +53,7 @@ func (lib *LibraryT) CalculateDayValue() {
 
 //TotalLibsOnTime numero de libros en el tiempo
 func (lib *LibraryT) TotalLibsOnTime(time uint32) {
-	lib.MaxBooks = uint32((time - lib.SignTime) / lib.DailyBooks)
+	lib.MaxBooks = uint32((time - lib.SignTime) * lib.DailyBooks)
 }
 
 //ByScoreBooks to order by score
