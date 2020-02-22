@@ -23,7 +23,7 @@ func main() {
 	filePathOut := os.Args[2]
 	fmt.Println(filePathIn, filePathOut)
 	libraries, books, time := readFile(filePathIn)
-	SortLibraries(libraries)
+	SortLibraries(libraries, books)
 	ReasignBooks(libraries, books, time)
 	fmt.Println(books)
 	fmt.Println(libraries)
