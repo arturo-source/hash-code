@@ -1,0 +1,9 @@
+#!/bin/sh
+
+TO_REMOVE_ARR="\.out \.tgz \.exe \.bin"
+
+for TO_REMOVE in $TO_REMOVE_ARR
+do
+	echo Removing all $TO_REMOVE
+	find . | grep $TO_REMOVE | xargs rm 2> /dev/null
+done

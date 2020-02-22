@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]
+then
+	echo "USAGE: ./run a b c etc"
+	exit 1
+fi
+
+for arg in $@
+do
+	for f in $(find input | grep "/$arg")
+	do
+		OUT=$(echo $f | sed 's/in/out/g')
+		echo "Input file: $f"
+		echo "Output file: $OUT"
+		./hashcode.bin $f $OUT
+	done
+done
