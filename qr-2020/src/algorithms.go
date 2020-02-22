@@ -11,7 +11,7 @@ func (a ByScore) Len() int           { return len(a) }
 func (a ByScore) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByScore) Less(i, j int) bool { return a[i].Score > a[j].Score }
 
-//ByScore to order by score
+//BySignTime to order by signtime
 type BySignTime []LibraryT
 
 func (a BySignTime) Len() int           { return len(a) }
